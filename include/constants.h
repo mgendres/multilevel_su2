@@ -1,0 +1,6 @@
+#ifndef INCLUDED_CONSTANTS
+#define INCLUDED_CONSTANTS
+
+#define PI 3.141592653589793
+
+#endif

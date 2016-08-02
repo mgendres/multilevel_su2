@@ -1,0 +1,64 @@
+Beta scans for pure SU(2) gauge theory
+lattice volume : V =8^4
+Nconfs = 1000, saved every 10
+
+Plaquettes defined as P_{m,n} = 1/(4V) \sum_x ( 1.0 - Tr U^{m,n}_{\mu\nu}(x) )
+where U^{m,n}_{\mu\nu}(x) = product of links around an mxn loop oriented in the \mu\nu plane at site x
+
+``Decimation'' was performed by first choosing a gauge where:
+
+U_\mu(x+e_\mu) = 1 and x%2==0
+
+and then mapping the links U_\mu(x) (x%2==0) to the coarse lattice.
+
+In each case, 20 subsequent sweeps of heat bath (in various forms) were performed
+
+
+NO DECIMATION
+
+v1 : beta scan; for comparison with known results
+
+FULL DECIMATION 
+
+v2a : beta scan, decimate and refine, then perform multiple sweeps  of heat bath
+
+v2b : beta scan, decimate and refine, then perform multiple sweeps of heat bath, with 2^4-cell edges fixed
+
+v2c : beta scan, decimate and refine, then perform multiple sweeps of heat bath, with 2^4-cell root edges fixed
+
+PARTIAL DECIMATION 
+
+v3a : beta scan; for each thermalized ensemble, performed an ordered initialization of 2^4-cell bulk (leaving 2^4 boundaries fixed, and thermalized), then subsequently perform multiple sweeps of heat bath across entire lattice
+
+v3b : beta scan; for each thermalized ensemble, performed a disordered initialization of 2^4-cell bulk (leaving 2^4 boundaries fixed, and thermalized), then subsequently perform multiple sweeps of heat bath across entire lattice
+
+v3c : beta scan; for each thermalized ensemble, performed an ordered initialization of 2^4-cell bulk (leaving 2^4 boundaries fixed, and thermalized), then subsequently perform multiple sweeps of heat bath within 2^4-cell bulk (leaving thermalized 2^4 boundaries fixed)
+
+v3d : beta scan; for each thermalized ensemble, performed a disordered initialization of 2^4-cell bulk (leaving 2^4 boundaries fixed, and thermalized), then subsequently perform multiple sweeps of heat bath within 2^4-cell bulk (leaving thermalized 2^4 boundaries fixed)
+
+INTERPOLATION
+
+v4a : beta scan; decimated and then refined with interpolation over 2^4-cell boundary; performed several cooling sweeps within the 2^4-cell bulk with large beta to achieve bulk interpolation, then perform multiple sweeps of heat bath
+
+v4b : beta scan; decimated and then refined with interpolation over 2^4-cell boundary; then perform multiple sweeps of heat bath within the 2^4-cell bulk keeping 2^4-cell boundaries held fixed
+
+v5a : beta_coarse scan; configs refined, ans rethermalizes using beta fine determined by one-loop beta-function result: e.g., beta(2a) = beta(a) + 11/(3\pi^2) log(2)
+      
+v5b : beta_coarse scan; configs refined, and rethermalized using beta fine determined by a matching of P11(coarse) to P22(fine).
+
+v5c : beta_coarse scan; configs refined, and rethermalized using beta fine determined by three-loop beta-function result.
+
+v5d : beta_coarse scan; configs refined, and rethermalized using beta fine determined emperically from v6 scan results, e.g., beta(2a) ~ 0.4286 * beta(a) + 0.9 (approximate leading behavior at strong coupling)
+
+v6a : beta_coarse fixed (1.3); configs refined, and rethermalized scanning in beta fine
+v6b : beta_coarse fixed (2.3); configs refined, and rethermalized scanning in beta fine
+v6c : beta_coarse fixed (3.3); configs refined, and rethermalized scanning in beta fine
+v6d : beta_coarse fixed (4.3); configs refined, and rethermalized scanning in beta fine
+v6e : beta_coarse fixed (5.3); configs refined, and rethermalized scanning in beta fine
+v6f : beta_coarse fixed (2.5); configs refined, and rethermalized scanning in beta fine
+v6g : beta_coarse fixed (2.7); configs refined, and rethermalized scanning in beta fine
+v6h : beta_coarse fixed (3.0); configs refined, and rethermalized scanning in beta fine
+
+CANONICAL REFINEMENT
+
+v7a : beta scan; decimated and then refine using "canonical refinement"; then perform multiple sweeps of heat bath

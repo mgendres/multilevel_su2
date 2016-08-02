@@ -1,0 +1,9 @@
+To make the library, edit and run:
+
+./scripts/make_lib.sh 
+
+Test programs are located in the tests directory, whereas production programs are located in the production directory.
+To compile and run, do, e.g.,
+
+cd tests/Lattice-Refine
+../../scripts/make_bin.sh main.C 
