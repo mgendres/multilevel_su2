@@ -11,8 +11,6 @@ using namespace std;
 int main(void)
 {
 
-  rng.Init(time(0));
-
   int sites[4] = {8,8,8,8};
   int sitesX[4] = {4,4,4,4};
   Lattice lattice(sites);

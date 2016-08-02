@@ -4,14 +4,12 @@
 #include <complex>
 #include <ctime>
 using namespace std;
-#include "ranlxd.h"
+#include "mt19937.h"
 #include "constants.h"
 #include "lattice.h"
 
 int main(void)
 {
-
-  rng.Init(time(0));
 
   int sites[4] = {4,4,4,4};
   Lattice lattice(sites);

@@ -3,7 +3,7 @@
 #include <math.h>
 #include <iostream>
 #include <complex>
-#include "ranlxd.h"
+#include "mt19937.h"
 using namespace std;
 
 int main(void)
@@ -19,7 +19,7 @@ int main(void)
   cout << endl;
 
   for (int k=0;k<10000000;++k) {
-    r = 10*rng.UniformDeviate();
+    r = 10*rng.genrand_res53();
     i = floor(r);
     a[i] += 1;
   }

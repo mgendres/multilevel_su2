@@ -21,7 +21,7 @@ int main(void)
     for (int nu=0; nu<4; ++nu) cout << s[nu] << " ";
     cout << ": ";
     cout << mu;
-    cout << " : ";
+    cout << " | ";
     cout << Subsets::all(mu, s);
     cout << " : ";
     cout << Subsets::checker_board(mu, s);
@@ -29,8 +29,6 @@ int main(void)
     cout << Subsets::two_cell_bulk(mu, s);
     cout << " : ";
     cout << Subsets::two_cell_bulk_checker_board(mu, s);
-    cout << " : ";
-    cout << Subsets::fun(mu, s);
     cout << endl;
   }
 
@@ -38,7 +36,6 @@ int main(void)
   cout << Subsets::checker_board.NumSubsets() << endl;
   cout << Subsets::two_cell_bulk.NumSubsets() << endl;
   cout << Subsets::two_cell_bulk_checker_board.NumSubsets() << endl;
-  cout << Subsets::fun.NumSubsets() << endl;
   exit(EXIT_SUCCESS);
 
 }

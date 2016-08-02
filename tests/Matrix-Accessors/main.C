@@ -3,7 +3,6 @@
 #include <iostream>
 #include <complex>
 using namespace std;
-#include "ranlxd.h"
 #include "constants.h"
 #include "matrix.h"
 

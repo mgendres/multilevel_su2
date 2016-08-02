@@ -47,7 +47,9 @@ int main(void)
   cout << "Mean plaquette (" << m << "," << n << ") : " << lattice.MeanPlaquette(m,n) << endl;
 
   if( !latticeX.Read("cfg.bin") )
+    cout << "Testing failure to import in case of lattice mismatch:" << endl;
     cout << "Failed to import lattice!" << endl;
+
   exit(EXIT_SUCCESS);
 }
 

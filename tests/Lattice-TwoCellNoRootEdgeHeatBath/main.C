@@ -4,14 +4,13 @@
 #include <complex>
 #include <ctime>
 using namespace std;
-#include "ranlxd.h"
+#include "mt19937.h"
 #include "constants.h"
 #include "lattice.h"
+#include "subset.h"
 
 int main(void)
 {
-
-  rng.Init(time(0));
 
   int sites[4] = {4,4,4,4};
   Lattice lattice(sites);
@@ -19,7 +18,7 @@ int main(void)
   Lattice latticeX(sites);
   Copy(lattice,latticeX);
 
-  latticeX.TwoCellNoRootEdgeHeatBathUpdate(0.0);
+  latticeX.HeatBathUpdate(0.0,Subsets::two_cell_no_root_edge);
 
   int s[4];
   for ( s[0]=0; s[0]<sites[0]; ++s[0] )

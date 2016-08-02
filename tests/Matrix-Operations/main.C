@@ -3,7 +3,6 @@
 #include <iostream>
 #include <complex>
 using namespace std;
-#include "ranlxd.h"
 #include "constants.h"
 #include "matrix.h"
 
@@ -27,24 +26,24 @@ int main(void)
   w.PrintProperties();
 
   std::cout << "v.u : " << std::endl;
-  Matrix vu(u);
-  vu.LeftMultiply(v);
+  Matrix vu;
+  vu = v*u;
   vu.PrintProperties();
 
   std::cout << "u.w : " << std::endl;
-  Matrix uw(u);
-  uw.RightMultiply(w);
+  Matrix uw;
+  uw = u*w;
   uw.PrintProperties();
 
-  std::cout << "vdag.u : " << std::endl;
-  Matrix vdagu(u);
-  vdagu.LeftDaggerMultiply(v);
-  vdagu.PrintProperties();
+//std::cout << "vdag.u : " << std::endl;
+//Matrix vdagu(u);
+//vdagu.LeftDaggerMultiply(v);
+//vdagu.PrintProperties();
 
-  std::cout << "u.wdag : " << std::endl;
-  Matrix uwdag(u);
-  uwdag.RightDaggerMultiply(w);
-  uwdag.PrintProperties();
+//std::cout << "u.wdag : " << std::endl;
+//Matrix uwdag(u);
+//uwdag.RightDaggerMultiply(w);
+//uwdag.PrintProperties();
 
   exit(EXIT_SUCCESS);
 }

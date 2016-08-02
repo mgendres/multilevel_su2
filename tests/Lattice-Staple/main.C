@@ -4,14 +4,12 @@
 #include <complex>
 #include <ctime>
 using namespace std;
-#include "ranlxd.h"
+#include "mt19937.h"
 #include "constants.h"
 #include "lattice.h"
 
 int main(void)
 {
-
-  rng.Init(time(0));
 
   int sites[4] = {4,4,4,4};
   Lattice lattice(sites);
@@ -27,7 +25,7 @@ int main(void)
   for ( s[3]=0; s[3]<sites[3]; ++s[3] )
   for (int mu=0; mu<4; ++mu) {
     for (int i=0; i<4; ++i) { std::cout << s[i] << " "; }
-    std::cout << lattice.LocalAction(mu,s) << " ";
+    //std::cout << lattice.LocalAction(mu,s) << " ";
     U = lattice.GaugeField(mu,s);
     S = lattice.Staple(mu,s);
     std::cout << -0.5*( S * U.Dagger() ).Tr() << " ";
