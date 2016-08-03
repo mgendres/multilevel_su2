@@ -1,1 +1,5 @@
 *.nb linguist-language=Java
+*/*.nb linguist-language=Java
+*/*/*.nb linguist-language=Java
+*/*/*.nb linguist-language=Java
+*/*/*/*.nb linguist-language=Java
