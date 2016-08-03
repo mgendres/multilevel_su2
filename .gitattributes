@@ -1,5 +1,5 @@
-*.nb linguist-language=Java
-*/*.nb linguist-language=Java
-*/*/*.nb linguist-language=Java
-*/*/*.nb linguist-language=Java
-*/*/*/*.nb linguist-language=Java
+*.nb linguist-language=C++
+*/*.nb linguist-language=C++
+*/*/*.nb linguist-language=C++
+*/*/*.nb linguist-language=C++
+*/*/*/*.nb linguist-language=C++
