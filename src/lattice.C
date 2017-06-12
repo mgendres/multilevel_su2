@@ -185,6 +185,22 @@ Matrix Lattice::Staple(int mu, const int* t)
   return U;
 }
 
+
+void Lattice::GlobalTransform(Matrix v)
+{
+
+  int s[4];
+  for ( s[0]=0; s[0]<sites[0]; ++s[0] )
+  for ( s[1]=0; s[1]<sites[1]; ++s[1] )
+  for ( s[2]=0; s[2]<sites[2]; ++s[2] )
+  for ( s[3]=0; s[3]<sites[3]; ++s[3] )
+  for (int mu=0; mu<4; ++mu) {
+    GaugeField(mu,s) = v * GaugeField(mu,s);   
+    GaugeField(mu,s) *= v.Dagger();   
+  }
+  
+}
+
 void Lattice::RandomGaugeTransform()
 {
 
@@ -330,6 +346,7 @@ void Lattice::MaximalTreeGaugeFix()
 
 double Diff(Lattice& lattice0, Lattice& lattice1)
 {
+  // This function determines if two lattices are gauge equivalent
 
   for (int mu=0; mu<4; ++mu) {
     if ( lattice0.sites[mu] != lattice1.sites[mu]) {
@@ -343,24 +360,75 @@ double Diff(Lattice& lattice0, Lattice& lattice1)
   lattice1.MaximalTreeGaugeFix();
 
   // Currently, this comparison doesn't account for a possible global
-  // transformation on the lattice, for example,
+  // transformation on the lattice. For example,
   // A = a_0 + I a_j \sigma_j
   // B = \Omega A \Omega^\dagger = a_0 + I a_j \Omega \sigma_j \Omega^\dagger
-  double tr(0.0);
-  double det(0.0);
-  double total(0.0);
-  int s[4];
+  // Also note that eigenvalues of an SU(2) matrix are (a_0 +- i \sqrt{1-a_0^2} ),
+  // so agreement in a_0 is a start.
+
+//// To confirm the rest:
+//// Begin by selecting two links in maximal tree gauge that were not set to unity
+//// In this case I picked the first site and 0 direction
+  int s[4] = {0,0,0,0};
+  int mu = 0;
+  Matrix X = lattice0.GaugeField(mu, s);
+  Matrix Y = lattice1.GaugeField(mu, s);
+  std::cout << X << std::endl;
+  std::cout << Y << std::endl;
+  // Then find the transformation that takse X to Y
+  Matrix V = X.RelationalTransformation(Y);
+  // Finally perform global transformation on the lattice so that X = Y
+  lattice0.GlobalTransform(V);
+  std::cout << lattice0.GaugeField(mu, s) << std::endl;
+  std::cout << lattice1.GaugeField(mu, s) << std::endl;
+
+// After performing this transformation, 
+// lattice0.GaugeField(mu, s) == lattice1.GaugeField(mu, s) = Y
+// But there still remains a residual freedom to rotate either field by Y^alpha since Y
+// commutes with itself and the links set to unity.
+// We may determine alpha numerically. There is probably a fancy analytic formula, but
+// I'll take the lazy route. Not even Newton's method lazy, but worse.
+
+  Matrix diff;
+  double d2;
+  {
+    double pow(0.1);
+    double thresh(1.0);
+    int step_count(0);
+    do {
+      step_count +=1;
+      lattice1.GlobalTransform(Y.Power( pow ));
+      diff = lattice0.GaugeField( (mu+5)%4 , s);
+      diff -= lattice1.GaugeField( (mu+5)%4, s);
+      diff *= diff.Dagger();
+      d2 = sqrt( diff.Tr() );
+      std::cout << step_count << " " << d2 << " " << thresh << std::endl;
+      if (d2> thresh) {
+        if (step_count==2) {
+          pow *= 0.1;
+        }
+        pow *= -1.0;
+        step_count = 0;
+      }
+      thresh = d2;
+    } while ( d2 > 1e-12 );
+  }
+
+  d2 = 0.0;
   for ( s[0]=0; s[0]<lattice0.sites[0]; ++s[0] )
   for ( s[1]=0; s[1]<lattice0.sites[1]; ++s[1] )
   for ( s[2]=0; s[2]<lattice0.sites[2]; ++s[2] )
   for ( s[3]=0; s[3]<lattice0.sites[3]; ++s[3] )
   for (int mu=0; mu<4; ++mu) {
-    tr =  lattice0.GaugeField(mu,s).Tr() - lattice1.GaugeField(mu,s).Tr();
-    det =  lattice0.GaugeField(mu,s).Det() - lattice1.GaugeField(mu,s).Det();
-    total += tr*tr;
+//    std::cout << lattice0.GaugeField(mu,s) << std::endl;
+//    std::cout << lattice1.GaugeField(mu,s) << std::endl;
+    diff =  lattice0.GaugeField(mu,s) - lattice1.GaugeField(mu,s);
+    diff *= diff.Dagger();
+    d2 += sqrt( diff.Tr() );
   } 
+  std::cout << "Trace difference squared (total over lattice): " << d2 << std::endl;
 
-  return total/lattice0.gauge_field_size; 
+  return d2;
 
 }
 

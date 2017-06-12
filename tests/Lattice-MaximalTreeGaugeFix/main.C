@@ -30,6 +30,14 @@ int main(void)
   for (int n=0; n<4; ++n)
   cout << "Mean plaquette (" << m << "," << n << ") : " << lattice.MeanPlaquette(m,n) << endl;
 
+  cout << "Create a disordered lattice..." << endl;
+  lattice.Initialize(DISORDERED);
+  cout << "Creating copy of lattice..." << endl;
+  Lattice latticeX(sites);
+  Copy(lattice,latticeX);
+  latticeX.RandomGaugeTransform();
+  Diff(lattice,latticeX);
+
   exit(EXIT_SUCCESS);
 }
 

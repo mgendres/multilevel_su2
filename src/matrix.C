@@ -167,6 +167,26 @@ Matrix Matrix::Power(double p) const
   return Matrix( real(z), element1*imag(z)/y, element2*imag(z)/y, element3*imag(z)/y );
 }
 
+Matrix Matrix::RelationalTransformation(Matrix B) const {
+  // Given "this" matrix (A) find a tranformation O st. O.A.O^\dagg = B
+  // Note this function assume a0 == b0
+  double d2 = B.Element0();
+  d2 -= element0;
+  d2 *= d2;
+  d2 = sqrt(d2);
+  if (d2 > 1e-12) {
+    std::cout << "Matrix::RelationalTransformation(...) assumes a0=b0" << std::endl;
+    exit(EXIT_FAILURE); 
+  }
+  // std::cout << "Matrix::RelationalTransformation(...) d2 = " << d2 << std::endl;
+  Matrix V;
+  V.Element0() = 1.0;
+  V.Element1() = 0.0;
+  V.Element2() = (B.Element3()-element3)/(element1+B.Element1());
+  V.Element3() = (element2-B.Element2())/(element1+B.Element1());
+  V /= sqrt( V.Det() );
+  return V;
+}
 
 
 double& Matrix::Element0() { return element0; }

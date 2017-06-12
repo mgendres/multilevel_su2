@@ -33,6 +33,7 @@ class Matrix
     Matrix Dagger() const; //
     Matrix Inverse() const; //
     Matrix Power(double) const; //
+    Matrix RelationalTransformation(Matrix) const; //
 
     Matrix& operator+=(const Matrix&); //
     Matrix& operator-=(const Matrix&); //

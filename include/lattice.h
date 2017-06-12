@@ -34,6 +34,7 @@ class Lattice
 
     Matrix Staple(int, const int*);
     void RandomGaugeTransform();
+    void GlobalTransform(Matrix);
     void MaximalTreeGaugeFix();
     void UnitLinkGaugeFix(int, const int*); // Gauge transforms link to unity
 
