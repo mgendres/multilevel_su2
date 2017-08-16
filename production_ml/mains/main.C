@@ -69,9 +69,9 @@ int main(int argc, char* argv[])
   int conf = 0;
   do {
 
-    timer.Restart();
 
     if ( conf%n_chkpt==0 ) {
+      timer.Restart();
     
       std::cout << "\t";
       std::cout << "Computing observables..." << std::endl;
@@ -89,8 +89,11 @@ int main(int argc, char* argv[])
       std::cout << "\t";
       lattice.Write(ss.str());
 
+      std::cout << "Total time for config measurements is : " << timer.ElapsedTime() << std::endl;
     }
  
+    std::cout << "Plaq: " << lattice.MeanPlaquette()<< std::endl;
+    timer.Restart();
     lattice.HeatBathUpdate(beta);
     std::cout << "Total time for config " << conf << " is : " << timer.ElapsedTime() << std::endl;
     ++conf;

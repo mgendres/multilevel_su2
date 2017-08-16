@@ -6,4 +6,4 @@ rm -rf data
 mkdir data
 
 ../../scripts/make_bin.sh main.C
-./a.out args args/evo.arg args/lattice.arg args/plaquette.arg 
+./a.out args/coupling.arg args/evo.arg args/lattice.arg args/plaquette.arg 
